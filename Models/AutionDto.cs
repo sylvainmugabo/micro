@@ -1,4 +1,4 @@
-namespace jest.Models;
+namespace micro.Models;
 public class AutionDto
 {
     public Guid Id { get; set; }

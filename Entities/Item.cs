@@ -1,4 +1,4 @@
-namespace jest.Entities;
+namespace micro.Entities;
 
 public class Item
 {

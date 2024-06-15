@@ -1,7 +1,7 @@
-using jest.Entities;
+using micro.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Extensions;
+namespace micro.handler.Extensions;
 public static class ProductExtension
 {
     private const string ApiEndPoint = "/api/products";

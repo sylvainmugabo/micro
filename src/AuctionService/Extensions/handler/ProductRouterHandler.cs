@@ -1,7 +1,7 @@
-using micro.Entities;
+using AuctionService.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace micro.handler.Extensions;
+namespace AuctionService.Extensions.handler;
 public static class ProductExtension
 {
     private const string ApiEndPoint = "/api/products";

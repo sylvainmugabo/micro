@@ -1,4 +1,4 @@
-namespace micro.Models;
+namespace AuctionService.Models;
 public class AutionDto
 {
     public Guid Id { get; set; }

@@ -1,6 +1,0 @@
-@micro_HostAddress = http://localhost:5025
-
-GET {{micro_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

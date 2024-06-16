@@ -1,5 +1,5 @@
 namespace AuctionService.Models;
-public class AutionDto
+public class AuctionDto
 {
     public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }

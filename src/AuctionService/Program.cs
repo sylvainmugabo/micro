@@ -1,10 +1,7 @@
-
-
 using AuctionService.Data;
 using AuctionService.Extensions.handler;
 using AuctionService.Helpers;
 using AuctionService.Helpers.Filters;
-using AuctionService.Middleware;
 using AuctionService.Repository;
 using Microsoft.EntityFrameworkCore;
 

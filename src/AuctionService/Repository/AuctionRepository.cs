@@ -22,7 +22,6 @@ public class AuctionRepository(ApplicationContext context, IMapper mapper) : IAu
         .ProjectTo<AuctionDto>(mapper.ConfigurationProvider)
         .FirstOrDefaultAsync(a => a.Id == id) ?? throw new AuctionIdNotFoundException(id);
         return auction;
-
     }
 
     public async Task<Auction> GetAuctionEntityById(Guid id)
@@ -38,7 +37,7 @@ public class AuctionRepository(ApplicationContext context, IMapper mapper) : IAu
         if (!string.IsNullOrEmpty(date))
             query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
 
-        return mapper.Map<List<AuctionDto>>(await query.ToListAsync());
+        return await query.ProjectTo<AuctionDto>(mapper.ConfigurationProvider).ToListAsync();
     }
 
     public void RemoveAuction(Auction auction)

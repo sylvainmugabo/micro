@@ -27,4 +27,6 @@ public class CreateAuctionDto
 
     [Required]
     public DateTime AuctionEnd { get; set; }
+
+    public string Seller { get; set; }
 }

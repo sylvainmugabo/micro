@@ -2,6 +2,8 @@ using AuctionService.DTOs;
 using AuctionService.Entities;
 using AuctionService.Repository;
 using AutoMapper;
+using Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionService.Extensions.handler;
@@ -19,15 +21,23 @@ public static class ProductExtension
             var aution = await repository.GetAuctionByIdAsync(id);
             return Results.Ok(aution);
         });
-        app.MapPost("api/auctions", async (CreateAuctionDto create, IMapper mapper, [FromServices] IAuctionRepository repository) =>
+        app.MapPost("api/auctions", async (
+            [FromBody] CreateAuctionDto auctionDto,
+            [FromServices] IAuctionRepository repository,
+            IMapper mapper,
+            IPublishEndpoint publishEndpoint, CancellationToken token) =>
         {
-            var auction = mapper.Map<Auction>(create);
+            var auction = mapper.Map<Auction>(auctionDto);
             repository.AddAuction(auction);
             var newAuction = mapper.Map<AuctionDto>(auction);
+
             var result = await repository.SaveChangesAsync();
+
+            await publishEndpoint.Publish(mapper.Map<AuctionCreated>(newAuction), token);
+
             if (!result) return Results.BadRequest();
             return Results.Ok(newAuction);
-        }).RequireAuthorization();
+        });
         app.MapDelete("/api/auctions", async (Guid id, [FromServices] IAuctionRepository repository) =>
         {
             var entity = await repository.GetAuctionEntityById(id);

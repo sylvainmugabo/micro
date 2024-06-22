@@ -1,8 +1,8 @@
 using AuctionService.Data;
 using AuctionService.Extensions.handler;
-using AuctionService.Helpers;
 using AuctionService.Helpers.Filters;
 using AuctionService.Repository;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +11,13 @@ builder.Services.AddControllers(cfg =>
     cfg.Filters.Add(typeof(ExceptionFilter));
 });
 
-builder.Services.AddAutoMapper(cfg =>
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMassTransit(cfg =>
 {
-    cfg.AddProfile<AutomapperProfile>();
+    cfg.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
 });
 
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();

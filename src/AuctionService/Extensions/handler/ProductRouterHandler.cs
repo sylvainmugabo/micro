@@ -30,10 +30,8 @@ public static class ProductExtension
             var auction = mapper.Map<Auction>(auctionDto);
             repository.AddAuction(auction);
             var newAuction = mapper.Map<AuctionDto>(auction);
-
-            var result = await repository.SaveChangesAsync();
-
             await publishEndpoint.Publish(mapper.Map<AuctionCreated>(newAuction), token);
+            var result = await repository.SaveChangesAsync();
 
             if (!result) return Results.BadRequest();
             return Results.Ok(newAuction);

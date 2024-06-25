@@ -35,7 +35,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 
 var app = builder.Build();
-//app.UseExceptionMiddleware();
+
 app.ProductEndpoint();
 
 

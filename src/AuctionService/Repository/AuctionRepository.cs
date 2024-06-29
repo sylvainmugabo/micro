@@ -45,6 +45,12 @@ public class AuctionRepository(ApplicationContext context, IMapper mapper) : IAu
         context.Auctions.Remove(auction);
     }
 
+    public async Task<bool> UpdateAuction(Auction auction)
+    {
+        context.Update(auction);
+        return await context.SaveChangesAsync() > 0;
+    }
+
     public async Task<bool> SaveChangesAsync()
     {
         return await context.SaveChangesAsync() > 0;
@@ -59,4 +65,5 @@ public interface IAuctionRepository
     void AddAuction(Auction auction);
     void RemoveAuction(Auction auction);
     Task<bool> SaveChangesAsync();
+    Task<bool> UpdateAuction(Auction auction);
 }

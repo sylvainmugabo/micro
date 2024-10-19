@@ -7,9 +7,9 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionService.Extensions.handler;
-public static class ProductExtension
+public static class AuctionExtension
 {
-    public static void ProductEndpoint(this IEndpointRouteBuilder app)
+    public static void AuctionEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapGet("/api/auctions/{date}", async (string date, [FromServices] IAuctionRepository repository) =>
         {

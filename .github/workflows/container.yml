@@ -25,4 +25,4 @@ jobs:
         run: dotnet build ./micro.sln --no-restore
 
       - name: Test
-        run: dotnet test ./AuctionSevice.Tests/AuctionService.Tests --no-build
+        run: dotnet test ./AuctionSevice.Tests/ --no-build
